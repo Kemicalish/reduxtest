@@ -1,6 +1,8 @@
 var React = require('react');
 var Masonry = require('react-masonry-component');
 import { connect } from 'react-redux'
+import { Poster } from './poster.js'
+
 
 var masonryOptions = {
     transitionDuration: 300
@@ -9,12 +11,10 @@ var masonryOptions = {
 var Gallery = React.createClass({
     render: function () {
         const { store } = this.context;
-        var childElements = store.getState().gallery.map(function(element){
-           return (
-                <div key={element.id} className="image-element-class">
-                    <img src={element.src} />
-                </div>
-            );
+        console.log('GET STATE', store.getState().gallery);
+        const onImageClick = () => console.log.bind(null, 'CLICK IMAGE');
+        var childElements = store.getState().gallery.images.map(function(image){
+           return ( <Poster key={image.id} image={image} /> );
         });
 
         return (
@@ -33,4 +33,4 @@ var Gallery = React.createClass({
 Gallery.contextTypes ={
     store: React.PropTypes.object
 }
-module.exports = Gallery;
+export default Gallery;
