@@ -22,6 +22,8 @@ const ProjectDetails = React.createClass({
         return (
         <div  className={className} style={style}>
             <div className="close-bt" onClick={close}/>
+            <div className="project-panel-details left" />
+            <div className="project-panel-details right" />
         </div>
         );
     }
