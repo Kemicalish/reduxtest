@@ -16,23 +16,55 @@ import { Provider } from 'react-redux'
 import App from './components/App'
 import reducer from './reducers'
 
+
+//TODO: switch creatstore with dev tools only if env="development"
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
+const projects = [
+	{
+		poster:'http://www.potion-of-wit.com/images/ref-thumb-r6.jpg',
+		cover:'http://www.potion-of-wit.com/images/r6-header.jpg'
+	},
+	{
+		poster:'http://www.potion-of-wit.com/images/ref-thumb-bak.jpg',
+		cover:'http://www.potion-of-wit.com/images/bak-header.jpg'
+	},
+	{
+		poster:'http://www.potion-of-wit.com/images/ref-thumb-ico-dashboard.jpg',
+		cover:'http://www.potion-of-wit.com/images/bak-header.jpg'
+	},
+	{
+		poster:'http://www.potion-of-wit.com/images/ref-thumb-lovelydays.jpg',
+		cover:'http://www.potion-of-wit.com/images/bak-header.jpg'
+	},
+	{
+		poster:'http://www.potion-of-wit.com/images/ref-thumb-the-order.jpg',
+		cover:'http://www.potion-of-wit.com/images/bak-header.jpg'
+	},
+	{
+		poster:'http://www.potion-of-wit.com/images/ref-thumb-sony-shop.jpg',
+		cover:'http://www.potion-of-wit.com/images/bak-header.jpg'
+	},
+	{
+		poster:'http://www.potion-of-wit.com/images/ref-thumb-lbp3.jpg',
+		cover:'http://www.potion-of-wit.com/images/bak-header.jpg'
+	},
+	{
+		poster:'http://www.potion-of-wit.com/images/ref-thumb-abu-dhabi.jpg',
+		cover:'http://www.potion-of-wit.com/images/bak-header.jpg'
+	}
+];
 
-
-const galleryPosters = [
-    'https://homepages.cae.wisc.edu/~ece533/images/airplane.png',
-    'https://homepages.cae.wisc.edu/~ece533/images/arctichare.png',
-    'http://www.publicdomainpictures.net/pictures/20000/t2/portrait-of-lioness-112940816603Iz.jpg',
-    'http://www.publicdomainpictures.net/pictures/20000/t2/small-stream-11299071647wvI.jpg',
-    'http://www.publicdomainpictures.net/pictures/90000/t2/wine-cork-background.jpg',
-    'http://thumb11.shutterstock.com/thumb_large/106495/106495,1225106844,1/stock-photo-funny-kitten-19546774.jpg',
-    'http://www.publicdomainpictures.net/pictures/40000/t2/aisle-st-mark-church-pensnett-1362570664iKo.jpg',
-    'http://www.publicdomainpictures.net/pictures/10000/t2/965-12392731797CyO.jpg'
-].map((img, i) => { return { 
+const galleryPosters = projects
+	.map((project, i) => { return { 
 	id:i, 
-	src: img,
-	onClick:console.log.bind(null, 'image click')
+	src: project.poster,
+	onClick:() =>{
+		store.dispatch({
+			type:'SHOW_PROJECT',
+			project:projects[i]
+		})
+	}
 }; });
 
 

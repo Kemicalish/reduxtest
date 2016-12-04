@@ -5,25 +5,34 @@ import { Poster } from './poster.js'
 
 
 var masonryOptions = {
-    transitionDuration: 300
+    transitionDuration: 0
 };
 
 var Gallery = React.createClass({
+
+    handleImagesLoaded: function(imagesLoadedInstance) {
+        const { store } = this.context;
+        if(store.getState().gallery.visibility !== 'SHOWN')
+            store.dispatch({
+                type:'SHOW_GALLERY'
+            });
+            
+    },
     render: function () {
         const { store } = this.context;
-        console.log('GET STATE', store.getState().gallery);
-        const onImageClick = () => console.log.bind(null, 'CLICK IMAGE');
+
         var childElements = store.getState().gallery.images.map(function(image){
            return ( <Poster key={image.id} image={image} /> );
         });
 
         return (
             <Masonry
-                className={'projects-gallery'} // default ''
+                className={'projects-gallery ' + store.getState().gallery.visibility.toLowerCase() } // default ''
                 elementType={'div'} // default 'div'
                 options={masonryOptions} // default {}
                 disableImagesLoaded={false} // default false
                 updateOnEachImageLoad={false} // default false and works only if disableImagesLoaded is false
+                onImagesLoaded={this.handleImagesLoaded}
             >
                 {childElements}
             </Masonry>

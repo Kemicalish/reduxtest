@@ -1,8 +1,23 @@
+const _				= require('lodash');
+
+function reorderImages(images){
+    return _.chain(images)
+            .orderBy(['active'], ['desc'])
+            .value();
+}   
+
+
+
 const gallery = (state = {
     type:'COLLAPSED',
+    visibility:'HIDDEN',
     images:[]
 }, action) => {
   switch (action.type) {
+    case 'SHOW_GALLERY':
+        return {...state, visibility:'SHOWN'}
+    case 'HIDE_GALLERY':
+        return {...state, visibility:'HIDDEN'}
     case 'ADD_GALLERY_IMG':
           return {...state, 
               images: [...state.images, {

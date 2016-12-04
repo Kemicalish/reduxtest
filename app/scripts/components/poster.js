@@ -1,7 +1,4 @@
 var React = require('react');
-var Masonry = require('react-masonry-component');
-
-
 
 const Poster = React.createClass({
 
