@@ -1,18 +1,27 @@
 var React = require('react');
 
 const ProjectDetails = React.createClass({
+    
     render: function () {
         const { store } = this.context;
 
+        const close = () => {
+            const { store } = this.context;
+            store.dispatch({
+                type:'CLOSE_PROJECT_DETAILS'
+            })
+        } 
+
         const currentProject = store.getState().project.active;
-        const visibility = currentProject.isPlaceholder ? 'hidden' : 'shown';
-        const className = `project-details ${visibility}`;
+        const visibility = store.getState().project.visibility;
+        const className = `project-details ${visibility} project-${currentProject.id}`;
         const style = {
-            backgroundImage:`url(${currentProject.cover})`
+            backgroundImage:currentProject.isPlaceholder ? 'none' : `url(${currentProject.cover})`
         }
 
-        return (<div  className={className} style={style}>
-            PROJECT DETAILS {currentProject.cover}
+        return (
+        <div  className={className} style={style}>
+            <div className="close-bt" onClick={close}/>
         </div>
         );
     }

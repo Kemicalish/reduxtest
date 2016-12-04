@@ -1,15 +1,17 @@
 const _				= require('lodash');
+const _defaultState = {
+        active:{
+            isPlaceholder:true
+        },
+        visibility:'hidden'
+    };
 
-
-const project = (state = {
-    active:{
-        isPlaceholder:true,
-        cover:'placeholder'
-    }
-}, action) => {
+const project = (state =_defaultState, action) => {
   switch (action.type) {
-    case 'SHOW_PROJECT':
-        return {...state, active:action.project}
+    case 'OPEN_PROJECT_DETAILS':
+        return {...state, visibility:'shown', active:action.project}
+    case 'CLOSE_PROJECT_DETAILS':
+        return {...state, visibility:'hidden'}
     default:
       return state
   }

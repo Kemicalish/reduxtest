@@ -12,6 +12,15 @@ $color-bg-default:#FFF;
 /**
 ANIMATIONS
 **/
+$default-easing:cubic-bezier(0.615, 0.010, 0.375, 1.000);
+@mixin fadeIn($duration, $easing){
+  animation:fadein $duration forwards;
+  @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+  }
+}
+
 
 /**
 BREAKPOINTS

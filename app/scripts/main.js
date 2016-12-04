@@ -53,15 +53,15 @@ const projects = [
 		poster:'http://www.potion-of-wit.com/images/ref-thumb-abu-dhabi.jpg',
 		cover:'http://www.potion-of-wit.com/images/bak-header.jpg'
 	}
-];
+].map((p,i) => {return{...p, id:i};});
 
 const galleryPosters = projects
 	.map((project, i) => { return { 
-	id:i, 
+	id:project.id, 
 	src: project.poster,
 	onClick:() =>{
 		store.dispatch({
-			type:'SHOW_PROJECT',
+			type:'OPEN_PROJECT_DETAILS',
 			project:projects[i]
 		})
 	}

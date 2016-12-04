@@ -3,6 +3,10 @@
 /**
 GLOBALS
 **/
+html,
+body{
+	height:100%;
+}
 
 body{
 	background:$color-bg-default;
@@ -17,46 +21,49 @@ body{
 	box-sizing: border-box;
 }
 
+#root{
+	overflow-y:scroll;
+	height:100%;
+}
 
+.close-bt{
+	position:absolute;
+	right:10px;
+	top:10px;
+	height:40px;
+	width:40px;
+	line-height:40px;
+	color:#FFF;
+	font-weight: bold;
+	font-size:24px;
+	cursor: pointer;
+	text-shadow: rgba(0,0,0,0.7) 0px 0px 3px;
 
-.projects-gallery{
-	opacity:0;
-	transition:opacity 0.3s ease-out;
-	margin-left:20px;
-	&.shown{
-		opacity:1;
+	&:before{
+		content:"✖";
+		transition:transform 0.3 $default-easing;
+		&:hover{
+			transform:rotate(90deg);
+		}
 	}
 }
 
-.project-details{
-	transition:max-height 0.5s ease-in-out;
-	height:300px;
-	background: center no-repeat;
-	background-size: cover;
-	&.hidden{
-		opacity:0;
-		max-height:0;
-	}
 
-	&.shown{
-		opacity:1;
-		max-height:500px;
-	}
-}
 
 .image-element-class { 
 	max-width: 400px; 
 	width:calc(25% - 20px);
 	margin-right:20px;
 	margin-bottom:20px;
-	transition:box-shadow 0.3s ease-out, transform 0.3s ease-out, left 0.3s ease-out, top 0.3s ease-out;
+	transition:box-shadow 0.3s $default-easing, transform 0.3s $default-easing, left 0.3s $default-easing, top 0.3s $default-easing;
 	border:10px #FFF solid;
 	box-shadow: 0 0 5px 2px rgba(0,0,0,.2);
 	transform:translate(0%, 0%);
+	cursor:pointer;
 
 	img{
 		width:100%;
-		transition:transform 0.3s ease-out;
+		transition:transform 0.3s $default-easing;
 		transform:scale(0.95);
 	}
 
@@ -72,5 +79,45 @@ body{
 
 	&.active{
 		
+	}
+}
+
+.projects-gallery{
+	padding-top:20px;
+	opacity:0;
+	transition:opacity 0.3s $default-easing;
+	margin-left:20px;
+	&.shown{
+		opacity:1;
+	}
+}
+
+.project-details{
+	transition:height 0.5s  $default-easing, opacity 0.5s  $default-easing;
+	height:300px;
+	background: top no-repeat;
+	background-size: cover;
+	position:relative;
+
+	@for $i from 0 through 20 {
+		&.project-#{$i}{
+			$name:anim#{$i};
+			animation: #{$name} 0.5s forwards $default-easing;
+			@keyframes #{$name} {
+				from {opacity: 0;}
+				to {opacity: 1;}
+			}
+		}
+	}
+	
+
+	&.hidden{
+		transition:height 0.5s  $default-easing, opacity 0.5s  $default-easing;
+		opacity:0;
+		height:0;
+	}
+
+	&.shown{
+		opacity:1;
 	}
 }
